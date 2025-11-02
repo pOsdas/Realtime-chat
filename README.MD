@@ -1,4 +1,4 @@
-# Backend payment simulator
+# Realtime chat
 ### Django server
 ```shell
 poetry run python manage.py runserver 8005
