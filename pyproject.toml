@@ -19,7 +19,11 @@ dependencies = [
     "psycopg2 (>=2.9.11,<3.0.0)",
     "django-environ (>=0.12.0,<0.13.0)",
     "colorlog (>=6.10.1,<7.0.0)",
-    "python-json-logger (>=4.0.0,<5.0.0)"
+    "python-json-logger (>=4.0.0,<5.0.0)",
+    "channels (>=4.3.1,<5.0.0)",
+    "channels-redis (>=4.3.0,<5.0.0)",
+    "djangorestframework-simplejwt[blacklist] (>=5.5.1,<6.0.0)",
+    "uvicorn[standard] (>=0.38.0,<0.39.0)"
 ]
 
 
