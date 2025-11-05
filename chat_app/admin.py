@@ -1,12 +1,16 @@
 from django.contrib import admin
 from .models import Room, Message, User
 from django.contrib.auth.admin import UserAdmin
+from rest_framework_simplejwt.token_blacklist.models import (
+    BlacklistedToken,
+    OutstandingToken,
+)
 
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
-        (None, {'fields': ('id', 'username', 'password', 'phone', 'email')}),
+        (None, {'fields': ('id', 'username', 'password', 'refresh_token', 'phone', 'email')}),
         ('Персональные данные', {
             'fields': ('first_name', 'last_name'),
             'classes': ('collapse',),
@@ -14,7 +18,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
     add_fieldsets = (
-        (None, {'fields': ('id', 'username', 'password1', 'password2', 'phone', 'email')}),
+        (None, {'fields': ('id', 'username', 'password1', 'password2', 'refresh_token', 'phone', 'email')}),
         ('Персональные данные', {
             'fields': ('first_name', 'last_name'),
             'classes': ('collapse',),
@@ -24,7 +28,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = (
         'username', 'first_name', 'last_name', 'phone', 'email',
     )
-    readonly_fields = ('id',)
+    readonly_fields = ('id', 'refresh_token')
 
 
 @admin.register(Room)

@@ -10,6 +10,7 @@ class User(AbstractUser):
         null=False,
         verbose_name="Номер телефона"
     )
+    refresh_token = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

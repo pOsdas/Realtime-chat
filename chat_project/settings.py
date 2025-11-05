@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 import logging.config
 import environ
@@ -41,7 +42,8 @@ REDIS_DECODE_RESPONSES = True
 
 # Установленные приложения
 INSTALLED_APPS = [
-    'app',
+    'chat_app',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,9 +52,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'drf_spectacular',
-    'drf_spectacular_sidecar'
+    'drf_spectacular_sidecar',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(REDIS_HOST, REDIS_PORT)]
+        },
+    },
+}
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -83,8 +96,8 @@ TEMPLATES = [
     },
 ]
 
-# ASGI_APPLICATION = 'chat_project.asgi.application'
-WSGI_APPLICATION = 'chat_project.wsgi.application'
+ASGI_APPLICATION = 'chat_project.asgi.application'
+# WSGI_APPLICATION = 'chat_project.wsgi.application'
 
 # Статические файлы
 STATIC_URL = '/static/'
@@ -102,7 +115,15 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
-AUTH_USER_MODEL = "app.User"
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ALGORITHM": "HS256",
+    "USER_ID_CLAIM": "user_id",
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+AUTH_USER_MODEL = "chat_app.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
