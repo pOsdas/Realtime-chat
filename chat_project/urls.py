@@ -20,6 +20,7 @@ urlpatterns = [
     path('', root_hello, name='root'),
     path(f"{API_PREFIX}{API_V1_PREFIX}/", include("chat_app.api.v1.users.urls")),
     path(f"{API_PREFIX}{API_V1_PREFIX}/", include("chat_app.api.v1.chat.urls")),
+    path(f"{API_PREFIX}{API_V1_PREFIX}/", include("chat_app.api.v1.tokens.urls")),
 
     # Маршруты для OpenAPI схемы и Swagger UI / Redoc
     path(f'{API_PREFIX}{API_V1_PREFIX}/schema/', SpectacularAPIView.as_view(), name='schema'),
