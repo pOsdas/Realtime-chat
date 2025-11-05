@@ -1,4 +1,4 @@
-# Backend payment simulator
+# Realtime chat
 ## Запуск и подготовка
 ### Django server
 ```shell
