@@ -1,10 +1,6 @@
 from django.contrib import admin
 from .models import Room, Message, User
 from django.contrib.auth.admin import UserAdmin
-from rest_framework_simplejwt.token_blacklist.models import (
-    BlacklistedToken,
-    OutstandingToken,
-)
 
 
 @admin.register(User)
