@@ -1,0 +1,39 @@
+services:
+  backend: &django
+    build: .
+    container_name: backend
+    ports:
+      - "8005:8005"
+    command: bash -c "poetry run python manage.py collectstatic --no-input && poetry run python manage.py migrate && uvicorn chat_project.asgi:application --host 127.0.0.1 --port 8005 --reload"
+    environment:
+      - DOCKER=True
+    env_file:
+      .env
+    volumes:
+      - ./app_project/static:/app/chat_project/static:rw
+    depends_on:
+      - db
+    restart:
+      always
+
+  db:
+    image: postgres:16.3
+    container_name: db
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    env_file:
+      .env
+#    ports:  # закрытые порты для production
+#      - 5555:5432
+    restart: always
+
+  redis:
+    image: redis:6
+    container_name: chat_redis
+    env_file:
+      - .env
+    restart: always
+
+volumes:
+  static:
+  pg_data:
